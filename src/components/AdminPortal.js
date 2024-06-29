@@ -73,22 +73,22 @@ const AdminPortal = () => {
     }
   };
 
-  const handleGenerateWidget = async () => {
-    try {
-      const response = await generateChatBotWidget();
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", "chatbot-widget.zip");
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      setAlertMessage("Widget generated successfully.");
-    } catch (error) {
-      console.error("Widget generation failed:", error);
-      setAlertMessage("Widget generation failed.");
-    }
-  };
+const handleGenerateWidget = async () => {
+  try {
+    const response = await generateChatBotWidget();
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "chatbot-widget.zip");
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setAlertMessage("Widget generated successfully.");
+  } catch (error) {
+    console.error("Widget generation failed:", error);
+    setAlertMessage("Widget generation failed.");
+  }
+};
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
@@ -107,7 +107,7 @@ const AdminPortal = () => {
         )}
         <div>
           <label className="block mb-2 text-sm">
-            Upload Info File in txt, word or PDF
+            Upload Info File in word or PDF
           </label>
           <input
             type="file"
@@ -126,7 +126,7 @@ const AdminPortal = () => {
             </div>
           )}
         </div>
-        <div>
+        {/* <div>
           <label className="block mb-2 text-sm">
             Upload Voice Sample in mp3 or WAV
           </label>
@@ -146,7 +146,7 @@ const AdminPortal = () => {
               Uploaded: {uploadedVoiceSampleName}
             </div>
           )}
-        </div>
+        </div> */}
         {fileUploaded && (
           <button
             onClick={handleGenerateWidget}

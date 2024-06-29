@@ -5,7 +5,10 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
+      localStorage.removeItem("token");
+      localStorage.removeItem("fileUploaded");
+      localStorage.removeItem("uploadedVoiceSampleName");
+      localStorage.removeItem("uploadedFileName");
     navigate("/");
   };
 

@@ -62,7 +62,6 @@ export const sendMessage = async (message) => {
   return response.data; 
 };
 
-
 export const generateChatBotWidget = async () => {
   const token = localStorage.getItem("token");
   const response = await axios.post(
@@ -72,7 +71,8 @@ export const generateChatBotWidget = async () => {
       headers: {
         Authorization: `Bearer ${token}`,
       },
+      responseType: "blob", 
     }
   );
-  return response.data;
+  return response;
 };
