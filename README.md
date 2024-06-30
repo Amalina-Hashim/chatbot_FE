@@ -48,8 +48,7 @@ This project consists of an admin portal and a chatbot widget. The admin portal 
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/your-repo/chatbot-widget-project.git
-    cd chatbot-widget-project
+    git clone https://github.com/Amalina-Hashim/chatbot_FE.git
     ```
 
 2. Install dependencies:
