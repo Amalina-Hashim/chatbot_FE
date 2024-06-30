@@ -5,8 +5,10 @@ const ChatBot = () => {
   const [message, setMessage] = useState("");
   const [chatLog, setChatLog] = useState([]);
   const [audioPath, setAudioPath] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSendMessage = async () => {
+    setLoading(true);
     const response = await sendMessage(message);
     setChatLog([
       ...chatLog,
@@ -15,6 +17,7 @@ const ChatBot = () => {
     ]);
     setMessage("");
     setAudioPath(response.audioPath);
+    setLoading(false);
   };
 
   const handlePlayAudio = () => {
@@ -43,6 +46,13 @@ const ChatBot = () => {
             </span>
           </div>
         ))}
+        {loading && (
+          <div className="text-left mb-2">
+            <span className="inline-block p-2 rounded bg-gray-100 animate-pulse">
+              ...
+            </span>
+          </div>
+        )}
       </div>
       <div className="flex">
         <input
@@ -54,6 +64,7 @@ const ChatBot = () => {
         <button
           onClick={handleSendMessage}
           className="px-4 py-2 bg-blue-500 text-white rounded-r"
+          disabled={loading}
         >
           Send
         </button>
