@@ -8,7 +8,7 @@ const ChatBot = () => {
   const [loading, setLoading] = useState(false);
 
   const handleSendMessage = async () => {
-    if (!message.trim()) return; // Prevent sending empty messages
+    if (!message.trim()) return; 
     setLoading(true);
     const response = await sendMessage(message);
     setChatLog([
