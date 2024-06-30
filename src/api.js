@@ -50,7 +50,6 @@ export const uploadVoiceSample = async (voiceSample) => {
 
 export const sendMessage = async (message, userToken) => {
   const token = userToken || localStorage.getItem("token"); 
-  console.log("Token being sent:", token); 
   if (!token) {
     throw new Error("No token provided");
   }
