@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://chatbot-widget88.azurewebsites.net/";
+const API_URL = "https://chatbot-widget88.azurewebsites.net";
 
 export const signup = async (username, email, password) => {
   const response = await axios.post(`${API_URL}/auth/signup`, {
@@ -48,8 +48,12 @@ export const uploadVoiceSample = async (voiceSample) => {
   return response.data;
 };
 
-export const sendMessage = async (message) => {
-  const token = localStorage.getItem("token");
+export const sendMessage = async (message, userToken) => {
+  const token = userToken || localStorage.getItem("token"); 
+  console.log("Token being sent:", token); 
+  if (!token) {
+    throw new Error("No token provided");
+  }
   const response = await axios.post(
     `${API_URL}/chat`,
     { message },
@@ -59,7 +63,7 @@ export const sendMessage = async (message) => {
       },
     }
   );
-  return response.data; 
+  return response.data;
 };
 
 export const generateChatBotWidget = async () => {
@@ -71,7 +75,7 @@ export const generateChatBotWidget = async () => {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-      responseType: "blob", 
+      responseType: "blob",
     }
   );
   return response;

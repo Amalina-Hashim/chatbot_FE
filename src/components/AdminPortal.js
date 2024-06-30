@@ -83,6 +83,7 @@ const AdminPortal = () => {
   const handleGenerateWidget = async () => {
     setLoading(true);
     try {
+      const userToken = localStorage.getItem("token"); 
       const response = await generateChatBotWidget();
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
@@ -143,27 +144,6 @@ const AdminPortal = () => {
             </div>
           )}
         </div>
-        {/* <div>
-          <label className="block mb-2 text-sm">
-            Upload Voice Sample in mp3 or WAV
-          </label>
-          <input
-            type="file"
-            onChange={handleVoiceChange}
-            className="w-full px-3 py-2 border rounded-md"
-          />
-          <button
-            onClick={handleVoiceUpload}
-            className="w-full mt-2 px-3 py-2 bg-blue-500 text-white rounded-md"
-          >
-            Upload Voice Sample
-          </button>
-          {uploadedVoiceSampleName && (
-            <div className="mt-2 text-sm text-gray-700">
-              Uploaded: {uploadedVoiceSampleName}
-            </div>
-          )}
-        </div> */}
         {fileUploaded && (
           <button
             onClick={handleGenerateWidget}
