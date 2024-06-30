@@ -8,6 +8,7 @@ const ChatBot = () => {
   const [loading, setLoading] = useState(false);
 
   const handleSendMessage = async () => {
+    if (!message.trim()) return; // Prevent sending empty messages
     setLoading(true);
     const response = await sendMessage(message);
     setChatLog([
@@ -25,6 +26,13 @@ const ChatBot = () => {
       `https://chatbot-widget88.azurewebsites.net/${audioPath}`
     );
     audio.play();
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSendMessage();
+    }
   };
 
   return (
@@ -59,6 +67,7 @@ const ChatBot = () => {
           type="text"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
+          onKeyPress={handleKeyPress}
           className="flex-1 p-2 border rounded-l"
         />
         <button
