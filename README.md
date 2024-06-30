@@ -1,70 +1,75 @@
-# Getting Started with Create React App
+# Chatbot Widget Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project consists of an admin portal and a chatbot widget. The admin portal allows users to upload their information and generate a chatbot widget, which can be integrated into any existing ReactJS project. The chatbot widget can be used to interact with users and respond to their queries based on the uploaded information. Access backend code here()
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- User authentication (signup and login)
+- File upload (PDF, DOCX)
+- Chatbot widget generation
+- Chatbot interaction with text and audio responses
 
-### `npm start`
+## Technologies used
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- ReactJS
+- Tailwind CSS
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Admin Portal
+![Admin Portal - File Upload and Generate Widget](./screenshots/admin_page.png)
+![Admin Portal - ChatBot Preview](./screenshots/chatbot_preview_page.png)
 
-### `npm test`
+## How to Integrate Chatbot Widget
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Download the `chatbot-widget.zip` file generated from the admin portal.
+2. Extract the contents of the `chatbot-widget.zip` file. It should contain `ChatBotWidget.js`, `ChatBot.js`, `widget-code.html`, and `README.md`.
+3. Copy `ChatBotWidget.js` and `ChatBot.js` to a suitable location in your React project (e.g., `src/components`).
+4. Add the following HTML to your `public/index.html` or any HTML file that is rendered as part of your React application:
 
-### `npm run build`
+    ```html
+    <div id="chatbot-button" style="position:fixed; bottom:20px; right:20px; cursor:pointer; background-color:#5a00ff; color:white; padding:10px; border-radius:50%; z-index:1000;">
+      Chat
+    </div>
+    <div id="chatbot-container" style="position:fixed; bottom:70px; right:20px; z-index:1000;"></div>
+    <script src="%PUBLIC_URL%/components/ChatBotWidget.js"></script>
+    <script>
+      document.getElementById("chatbot-button").onclick = function() {
+        if (!document.getElementById("chatbot-widget")) {
+          renderChatBotWidget('chatbot-container');
+        }
+      }
+    </script>
+    ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+5. Make sure to replace `%PUBLIC_URL%` with the correct path to where you placed the `ChatBotWidget.js` file.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Getting Started
 
-### `npm run eject`
+1. Clone the repository:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+    ```bash
+    git clone https://github.com/your-repo/chatbot-widget-project.git
+    cd chatbot-widget-project
+    ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. Install dependencies:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+    ```bash
+    npm install
+    ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+3. Start the backend server:
 
-## Learn More
+    ```bash
+    npm start
+    ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+4. Start the frontend development server:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+    ```bash
+    npm run start:frontend
+    ```
 
-### Code Splitting
+5. Access the admin portal at `http://localhost:3000`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
