@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000";
+const API_URL = "https://chatbot-widget88.azurewebsites.net/";
 
 export const signup = async (username, email, password) => {
   const response = await axios.post(`${API_URL}/auth/signup`, {

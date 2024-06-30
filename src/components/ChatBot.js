@@ -18,7 +18,9 @@ const ChatBot = () => {
   };
 
   const handlePlayAudio = () => {
-    const audio = new Audio(`http://localhost:5000${audioPath}`);
+    const audio = new Audio(
+      `https://chatbot-widget88.azurewebsites.net/${audioPath}`
+    );
     audio.play();
   };
 
