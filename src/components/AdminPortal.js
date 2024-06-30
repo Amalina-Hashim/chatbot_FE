@@ -15,6 +15,7 @@ const AdminPortal = () => {
     localStorage.getItem("uploadedVoiceSampleName") || ""
   );
   const [alertMessage, setAlertMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (fileUploaded) {
@@ -51,6 +52,7 @@ const AdminPortal = () => {
   };
 
   const handleFileUpload = async () => {
+    setLoading(true);
     try {
       await uploadFile(file);
       setFileUploaded(true);
@@ -59,10 +61,13 @@ const AdminPortal = () => {
     } catch (error) {
       console.error("File upload failed:", error);
       setAlertMessage("File upload failed.");
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleVoiceUpload = async () => {
+    setLoading(true);
     try {
       await uploadVoiceSample(voiceSample);
       setUploadedVoiceSampleName(voiceSample.name);
@@ -70,25 +75,30 @@ const AdminPortal = () => {
     } catch (error) {
       console.error("Voice sample upload failed:", error);
       setAlertMessage("Voice sample upload failed.");
+    } finally {
+      setLoading(false);
     }
   };
 
-const handleGenerateWidget = async () => {
-  try {
-    const response = await generateChatBotWidget();
-    const url = window.URL.createObjectURL(new Blob([response.data]));
-    const link = document.createElement("a");
-    link.href = url;
-    link.setAttribute("download", "chatbot-widget.zip");
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    setAlertMessage("Widget generated successfully.");
-  } catch (error) {
-    console.error("Widget generation failed:", error);
-    setAlertMessage("Widget generation failed.");
-  }
-};
+  const handleGenerateWidget = async () => {
+    setLoading(true);
+    try {
+      const response = await generateChatBotWidget();
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "chatbot-widget.zip");
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setAlertMessage("Widget generated successfully.");
+    } catch (error) {
+      console.error("Widget generation failed:", error);
+      setAlertMessage("Widget generation failed.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
@@ -117,8 +127,15 @@ const handleGenerateWidget = async () => {
           <button
             onClick={handleFileUpload}
             className="w-full mt-2 px-3 py-2 bg-blue-500 text-white rounded-md"
+            disabled={loading}
           >
-            Upload File
+            {loading ? (
+              <div className="flex items-center justify-center">
+                <div className="w-5 h-5 border-t-2 border-r-2 border-white rounded-full animate-spin"></div>
+              </div>
+            ) : (
+              "Upload File"
+            )}
           </button>
           {fileUploaded && uploadedFileName && (
             <div className="mt-2 text-sm text-gray-700">
@@ -151,8 +168,15 @@ const handleGenerateWidget = async () => {
           <button
             onClick={handleGenerateWidget}
             className="w-full mt-4 px-3 py-2 bg-green-500 text-white rounded-md"
+            disabled={loading}
           >
-            Generate Chatbot Widget
+            {loading ? (
+              <div className="flex items-center justify-center">
+                <div className="w-5 h-5 border-t-2 border-r-2 border-white rounded-full animate-spin"></div>
+              </div>
+            ) : (
+              "Generate Chatbot Widget"
+            )}
           </button>
         )}
         {widgetCode && (

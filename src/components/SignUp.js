@@ -7,10 +7,12 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [alertMessage, setAlertMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const { token } = await signup(username, email, password);
       localStorage.setItem("token", token);
@@ -18,6 +20,8 @@ const SignUp = () => {
     } catch (error) {
       console.error("Sign up failed:", error);
       setAlertMessage("Sign up failed. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -63,8 +67,15 @@ const SignUp = () => {
         <button
           type="submit"
           className="w-full px-3 py-2 text-white bg-blue-500 rounded-md"
+          disabled={loading}
         >
-          Sign Up
+          {loading ? (
+            <div className="flex items-center justify-center">
+              <div className="w-5 h-5 border-t-2 border-r-2 border-white rounded-full animate-spin"></div>
+            </div>
+          ) : (
+            "Sign Up"
+          )}
         </button>
         <div className="text-center mt-4">
           <span className="text-sm">Already have an account? </span>

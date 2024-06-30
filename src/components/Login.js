@@ -6,10 +6,12 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [alertMessage, setAlertMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const { token } = await login(username, password);
       localStorage.setItem("token", token);
@@ -17,6 +19,8 @@ const Login = () => {
     } catch (error) {
       console.error("Login failed:", error);
       setAlertMessage("Login failed. Please check your username and password.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -53,8 +57,15 @@ const Login = () => {
         <button
           type="submit"
           className="w-full px-3 py-2 text-white bg-blue-500 rounded-md"
+          disabled={loading}
         >
-          Login
+          {loading ? (
+            <div className="flex items-center justify-center">
+              <div className="w-5 h-5 border-t-2 border-r-2 border-white rounded-full animate-spin"></div>
+            </div>
+          ) : (
+            "Login"
+          )}
         </button>
         <div className="text-center mt-4">
           <span className="text-sm">No account yet? </span>
